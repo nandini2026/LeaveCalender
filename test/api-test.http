@@ -1,0 +1,182 @@
+### Try to insert into Employees
+POST http://localhost:4004/leaveApi/Employees
+Content-Type: application/json
+
+{
+        "employeeName":"aksjbc",
+        "team_teamName":"ABAP",
+        "location":"Mumbai",
+        "pic":"sap-icon://employee"
+
+}
+
+### to check action
+POST http://localhost:4004/leaveApi/Employees/(8b7a2e16-00c9-4708-b070-53463ccd959e)/refreshData
+
+{
+      "employeeName":"DD",
+        "team_teamName":"ABAP",
+        "location":"Mumbai",
+        "pic":"sap-icon://employee"
+}
+
+### Try to insert into Leaves(role - admin)
+POST http://localhost:4004/leaveApi/Leaves
+Content-Type: application/json
+
+{
+      "employeeID": "2103a666-6a09-4aa6-8e21-10062cc3b89d",
+      "startDate": "2023-11-21T18:30:00Z",
+      "endDate": "2023-11-23T18:29:00Z",
+      "title": "Planned Leave",
+      "description": "High Fever",
+      "type": "Type06"
+}
+
+### Try to POST into Leaves
+GET http://localhost:4004/leaveApi/Leaves
+Content-Type: application/json
+
+{
+      "employeeID": 10101,
+      "startDate": "2023-01-10T18:30:00Z",
+      "endDate": "2023-01-11T18:29:00Z",
+      "title": "Planned Leave",
+      "description": "Very high fever",
+      "type": "Type06"
+}
+
+### Try to update into Leaves(role - admin)
+PUT http://localhost:4004/leaveApi/Leaves(80ecf962-7c24-4a7b-afcb-256716998ed4)
+Content-Type: application/json
+
+{
+      "empLeaveID": "80ecf962-7c24-4a7b-afcb-256716998ed4",
+      "employeeID": 18181,
+      "startDate": "2023-01-10T18:30:00Z",
+      "endDate": "2023-01-11T18:29:00Z",
+      "title": "p",
+      "description": "Very high fever",
+      "type": "Type06"
+}
+
+### delete op's 
+DELETE http://localhost:4004/leaveApi/Employees('9229929292')
+
+### public Holiday
+POST http://localhost:4004/leaveApi/PublicHolidays
+Content-Type: application/json
+
+{
+  "puHoliID": 15,
+
+      "location": "Kolkata",
+
+      "startDate": "2023-11-26T18:30:00.000Z",
+
+      "endDate": "2023-11-27T18:29:00.000Z",
+
+      "description": "Kartik Purnima/Guru Nanak Jayanthi",
+
+      "pic": "sap-icon://general-leave-request",
+
+      "type": "Type01",
+
+      "employee_employeeID": null
+}
+# 11;Mumbai;2023-10-01T18:30:00.000Z;2023-10-02T18:29:00.000Z;Gandhi Jayanti;;sap-icon://general-leave-request;Type01
+# 10;Kolkata;2023-09-06T18:30:00.000Z;2023-09-07T18:29:00.000Z;Janmashtami;;sap-icon://general-leave-request;Type011
+
+### delete op's 
+DELETE http://localhost:4004/leaveApi/PublicHolidays(86926940)
+
+
+###
+PUT  http://localhost:4004/leaveApi/Employees('108899')
+Content-Type: application/json
+
+{
+        "employeeID":"108899",
+        "employeeName":"JOE",
+        "team_teamName":"BASIS",
+        "location":"Mumbai",
+        "pic":"sap-icon://employee"
+}
+
+###
+PUT http://localhost:4004/leaveApi/CountryCity(45c44634-c222-4f4a-a51b-9ac4eb140009)
+Content-Type: application/json
+
+{
+      "countryCityID": "45c44634-c222-4f4a-a51b-9ac4eb140009",
+      "countryID": "8875191c-1241-4299-98ca-b877a27d7b1b",
+      "country": "India",
+      "city": "Mumbai"
+
+}
+
+###
+DELETE  http://localhost:4004/leaveApi/Country(42fabbeb-c5d5-4637-870e-7960e6380bfa)
+
+
+###
+PUT http://localhost:4004/leaveApi/Employees(33237c4d-6e22-474f-a6b7-a9755851b344)
+Content-Type: application/json
+
+{
+      "employeeName": "Sagar Singh",
+      "team_teamName": "FIORI",
+      "location": "Mumbai",
+      "pic": "data:image/jpeg;base64,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"
+}
+
+###
+PUT http://localhost:4004/leaveApi/PublicHolidays(16)
+Content-Type: application/json
+
+{
+      "puHoliID": 16,
+      "location": "Amsterdam",
+      "startDate": "2023-04-06T18:30:00.000Z",
+      "endDate": "2023-04-07T18:30:00.000Z",
+      "description": "Good Friday",
+      "pic": "sap-icon://general-leave-request",
+      "type": "Type01",
+      "employee_employeeID": null
+}
+
+####
+POST  http://localhost:4004/leaveApi/Employees
+Content-Type: application/json
+
+{
+      "employeeName": "DibyaKanta",
+      "team_teamName": "SAP Ui5/Fiori",
+      "location": "Kolkata",
+      "pic": "sap-icon://employee"
+}
+
+###
+POST http://localhost:4004/leaveApi/Teams
+Content-Type: application/json
+
+{
+    "teamName" : "SAP S/4 Hana",
+    "description": "S/4 Hana"
+}
+###
+POST http://localhost:4004/leaveApi/CountryCity
+Content-Type: application/json
+
+{
+    "countryID": "8e8a4833-660a-4092-97c9-a6623e94c989",
+    "country": "India",
+    "city": "Pune"
+}
+###
+POST http://localhost:4004/leaveApi/Country
+Content-Type: application/json
+
+{
+    "country": "India"
+}

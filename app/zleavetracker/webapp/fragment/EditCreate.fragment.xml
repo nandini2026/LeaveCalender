@@ -1,0 +1,32 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Dialog id="editCreateDialog">
+        <beginButton>
+            <Button id="editCreateBtnSave" text="Save" type="Emphasized"  press="handleEditDialogSaveButton" />
+        </beginButton>
+        <endButton>
+            <Button id="editCreateBtnCancel" text="Cancel" press="handleEditDialogCancelButton" />
+        </endButton>
+        <l:VerticalLayout id="editCreateVerticalLayout" class="sapUiContentPadding" width="100%">
+            <!-- <CheckBox id="isIntervalAppointment" text="Interval appointment" select="handleAppointmentTypeChange" /> -->
+            <!-- <Label text="Select person: " labelFor="selectPerson" />
+            <Input id="selectPerson1" value="{employeeID}" /> -->
+            <Input id="leaveID" visible="false" value="{empLeaveID}"/>
+            <Input id="empID" visible="false" value="{employeeID}"/>
+            <Label id="editCreateLabel1" text="Leave Type: " labelFor="inputTitle" />
+            <!-- <Input id="empqID" visible="true" value="{title}"/> -->
+            <Select id="leaveType1" width="100%" > 
+                <items>
+                    <core:Item id="editCraeteItem1" text="Planned" key="Planned" />
+                    <core:Item id="editCreateItem2" text="Un-Planned" key="Un-Planned" />
+                </items>
+            </Select>
+            <!-- <Input id="inputTitle" /> -->
+            <Label id="editCreateLabel2" text="Start date: " labelFor="startDate" />
+            <DateTimePicker id="start_Date" displayFormat="short" value="{startDate}" required="true" change="handleCreateChange" />
+            <Label id="editCreateLabel3" text="End date: " labelFor="endDate" />
+            <DateTimePicker id="end_Date" displayFormat="short" value="{endDate}" required="true" change="handleCreateChange" />
+            <Label id="editCreateLabel4" text="Reason/Description: " labelFor="inputInfo" />
+            <Input id="more_Info" value="{description}"/>
+        </l:VerticalLayout>
+    </Dialog>
+</core:FragmentDefinition>

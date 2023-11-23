@@ -1,0 +1,32 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Dialog id="PublichHoliday" title="Add Public Holiday's">
+        <beginButton>
+            <Button id="savePH" text="Save" type="Emphasized" press="saveManagePublichHolidayFrag" />
+        </beginButton>
+        <endButton>
+            <Button id="closePH" text="Cancel" press="closeManagePublichHolidayFrag" />
+        </endButton>
+        <l:VerticalLayout id="VLPH" class="sapUiContentPadding" width="100%">
+            <Label id="PHL" text="Location:" />
+            <HBox id="editTeamSkillHBox">
+                <ComboBox id='phcon' items="{
+                    path: '/Country'
+                    }" visible="true" required="true" width="100%" change="handleChangeCountry2">
+                    <core:Item id="editTeamSkillItem1" key="{country}" text="{country}" />
+                </ComboBox>
+                <ComboBox id='phcity' items="{
+                    path: '/CountryCity'
+                    }" visible="false" class="sapUiTinyMarginBegin" width="100%">
+                    <core:Item id="editTeamSkillItem2" key="{country}" text="{city}" />
+                </ComboBox>
+            </HBox>
+            
+            <Label id="PHsd" text="Date:" />
+            <DatePicker id="phdate"/>
+
+            <Label id="PHd" text="description:" />
+            <Input id="PHINPd" />
+
+        </l:VerticalLayout>
+    </Dialog>
+</core:FragmentDefinition>

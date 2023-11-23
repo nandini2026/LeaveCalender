@@ -1,0 +1,39 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Dialog id="addEmpDialog" title="Add Employee">
+        <beginButton>
+            <Button id="fragAddemp-btn1" text="Save" type="Emphasized" press="addNewEmployeeData" />
+        </beginButton>
+        <endButton>
+            <Button id="fragAddemp-btn2" text="Cancel" press="closeNewEmpAddDialog" />
+        </endButton>
+        <l:VerticalLayout id="fragAddemp-vrtclLayout" class="sapUiContentPadding" width="100%">
+            <Label id="fragAddemp-label1" text="Name:" />
+            <Input id="empName" />
+            <!-- <Label id="_IDGenLabel2" text="ID:" /> -->
+            <!-- <Input id="empID1" /> -->
+            <Label id="fragAddemp-labe2" text="Team Name: " />
+            <!-- <Input id="teamName" /> -->
+            <ComboBox id='cbteamName' items="{
+					path: '/Teams'
+				}" width="100%">
+                <core:Item id="fragAddemp-item1" key="{teamName}" text="{teamName}" />
+            </ComboBox>
+            <Label id="fragAddemp-label3" text="Location:" />
+            <!-- <Input id="loc" /> -->
+            <HBox id="fragAddemp-hbox">
+                <ComboBox id='cblswocation' items="{
+                    path: '/Country'
+                    }" visible="true" required="true" width="100%" change="handleChangeCountry1">
+                    <core:Item id="fragAddemp-item2" key="{country}" text="{country}" />
+                </ComboBox>
+                <ComboBox id='wcblswocation' items="{
+                    path: '/CountryCity'
+                    }" visible="false" class="sapUiTinyMarginBegin" width="100%">
+                    <core:Item id="fragAddemp-item3" key="{country}" text="{city}" />
+                </ComboBox>
+            </HBox>
+            <Label id="fragAddemp-label4" text="Pic : " visible="false" />
+            <Input id="pic" value="sap-icon://employee" visible="false" />
+        </l:VerticalLayout>
+    </Dialog>
+</core:FragmentDefinition>

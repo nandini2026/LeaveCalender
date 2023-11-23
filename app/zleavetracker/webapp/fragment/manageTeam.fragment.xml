@@ -1,0 +1,16 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Dialog id="a" title="Add Team">
+        <beginButton>
+            <Button id="ss" text="Save" type="Emphasized" press="saveManageTeamFrag" />
+        </beginButton>
+        <endButton>
+            <Button id="as" text="Cancel" press="closeManageTeamFrag" />
+        </endButton>
+        <l:VerticalLayout id="dsw" class="sapUiContentPadding" width="100%">
+            <Label id="tname" text="Team Name:" />
+            <Input id="teamName" />
+            <Label id="tdesc" text="Team Description:" />
+            <Input id="teamDesc" />
+        </l:VerticalLayout>
+    </Dialog>
+</core:FragmentDefinition>

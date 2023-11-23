@@ -1,0 +1,13 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Dialog id="deleteEmpDialog" title="Warning!">
+        <beginButton>
+            <Button id="delbtnOk" text="Yes" type="Negative" press="deleteEmp" />
+        </beginButton>
+        <endButton>
+            <Button id="cancelDel" text="No" press="clodeDelMes" />
+        </endButton>
+        <l:VerticalLayout id="_IDGenVersticalLayout1" class="sapUiContentPadding" width="100%">
+            <Text id="delMes" text=""/>
+        </l:VerticalLayout>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+        <edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="CatalogService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Employees" EntityType="CatalogService.Employees">
+                    <NavigationPropertyBinding Path="team" Target="Teams"/>
+                    <NavigationPropertyBinding Path="publicHoliday" Target="PublicHolidays"/>
+                    <NavigationPropertyBinding Path="leave" Target="Leaves"/>
+                </EntitySet>
+                <EntitySet Name="Teams" EntityType="CatalogService.Teams">
+                    <NavigationPropertyBinding Path="employee" Target="Employees"/>
+                </EntitySet>
+                <EntitySet Name="PublicHolidays" EntityType="CatalogService.PublicHolidays">
+                    <NavigationPropertyBinding Path="employee" Target="Employees"/>
+                </EntitySet>
+                <EntitySet Name="Leaves" EntityType="CatalogService.Leaves">
+                    <NavigationPropertyBinding Path="employee" Target="Employees"/>
+                </EntitySet>
+                <EntitySet Name="legendItems" EntityType="CatalogService.legendItems"/>
+                <EntitySet Name="CountryCity" EntityType="CatalogService.CountryCity">
+                    <NavigationPropertyBinding Path="count" Target="Country"/>
+                </EntitySet>
+                <EntitySet Name="Country" EntityType="CatalogService.Country">
+                    <NavigationPropertyBinding Path="city" Target="CountryCity"/>
+                </EntitySet>
+            </EntityContainer>
+            <EntityType Name="Employees">
+                <Key>
+                    <PropertyRef Name="employeeID"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="employeeID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="employeeName" Type="Edm.String"/>
+                <NavigationProperty Name="team" Type="CatalogService.Teams" Partner="employee">
+                    <ReferentialConstraint Property="team_teamName" ReferencedProperty="teamName"/>
+                </NavigationProperty>
+                <Property Name="team_teamName" Type="Edm.String"/>
+                <Property Name="location" Type="Edm.String"/>
+                <Property Name="pic" Type="Edm.String"/>
+                <NavigationProperty Name="publicHoliday" Type="Collection(CatalogService.PublicHolidays)"/>
+                <NavigationProperty Name="leave" Type="Collection(CatalogService.Leaves)"/>
+            </EntityType>
+            <EntityType Name="Teams">
+                <Key>
+                    <PropertyRef Name="teamName"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="teamName" Type="Edm.String" Nullable="false"/>
+                <Property Name="description" Type="Edm.String"/>
+                <NavigationProperty Name="employee" Type="Collection(CatalogService.Employees)" Partner="team"/>
+            </EntityType>
+            <EntityType Name="PublicHolidays">
+                <Key>
+                    <PropertyRef Name="puHoliID"/>
+                </Key>
+                <Property Name="createdAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="createdBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="modifiedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+                <Property Name="modifiedBy" Type="Edm.String" MaxLength="255"/>
+                <Property Name="puHoliID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="location" Type="Edm.String"/>
+                <Property Name="startDate" Type="Edm.DateTimeOffset"/>
+                <Property Name="endDate" Type="Edm.DateTimeOffset"/>
+                <Property Name="description" Type="Edm.String"/>
+                <Property Name="pic" Type="Edm.String"/>
+                <Property Name="type" Type="Edm.String"/>
+                <NavigationProperty Name="employee" Type="CatalogService.Employees">
+                    <ReferentialConstraint Property="employee_employeeID" ReferencedProperty="employeeID"/>
+                </NavigationProperty>
+                <Property Name="employee_employeeID" Type="Edm.Guid"/>
+            </EntityType>
+            <EntityType Name="Leaves">
+                <Key>
+                    <PropertyRef Name="empLeaveID"/>
+                </Key>
+                <Property Name="empLeaveID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="employeeID" Type="Edm.Guid"/>
+                <Property Name="startDate" Type="Edm.DateTimeOffset"/>
+                <Property Name="endDate" Type="Edm.DateTimeOffset"/>
+                <Property Name="title" Type="Edm.String"/>
+                <Property Name="description" Type="Edm.String"/>
+                <Property Name="type" Type="Edm.String"/>
+                <NavigationProperty Name="employee" Type="CatalogService.Employees">
+                    <ReferentialConstraint Property="employee_employeeID" ReferencedProperty="employeeID"/>
+                </NavigationProperty>
+                <Property Name="employee_employeeID" Type="Edm.Guid"/>
+            </EntityType>
+            <EntityType Name="legendItems">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="text" Type="Edm.String"/>
+                <Property Name="type" Type="Edm.String"/>
+                <Property Name="color" Type="Edm.String"/>
+            </EntityType>
+            <EntityType Name="CountryCity">
+                <Key>
+                    <PropertyRef Name="countryCityID"/>
+                </Key>
+                <Property Name="countryCityID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="countryID" Type="Edm.Guid"/>
+                <Property Name="country" Type="Edm.String"/>
+                <Property Name="city" Type="Edm.String"/>
+                <NavigationProperty Name="count" Type="CatalogService.Country">
+                    <ReferentialConstraint Property="count_countryID" ReferencedProperty="countryID"/>
+                </NavigationProperty>
+                <Property Name="count_countryID" Type="Edm.Guid"/>
+            </EntityType>
+            <EntityType Name="Country">
+                <Key>
+                    <PropertyRef Name="countryID"/>
+                </Key>
+                <Property Name="countryID" Type="Edm.Guid" Nullable="false"/>
+                <Property Name="country" Type="Edm.String"/>
+                <NavigationProperty Name="city" Type="Collection(CatalogService.CountryCity)"/>
+            </EntityType>
+            <Annotations Target="CatalogService.Employees/createdAt">
+                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                <Annotation Term="Core.Immutable" Bool="true"/>
+                <Annotation Term="Core.Computed" Bool="true"/>
+                <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                </Annotations>
+                <Annotations Target="CatalogService.Employees/createdBy">
+                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                    <Annotation Term="Core.Immutable" Bool="true"/>
+                    <Annotation Term="Core.Computed" Bool="true"/>
+                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                        </Annotations>
+                        <Annotations Target="CatalogService.Employees/modifiedAt">
+                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                            <Annotation Term="Core.Computed" Bool="true"/>
+                            <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                            </Annotations>
+                            <Annotations Target="CatalogService.Employees/modifiedBy">
+                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                <Annotation Term="Core.Computed" Bool="true"/>
+                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                    <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                    </Annotations>
+                                    <Annotations Target="CatalogService.Teams/createdAt">
+                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                        <Annotation Term="Core.Immutable" Bool="true"/>
+                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                        <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                        </Annotations>
+                                        <Annotations Target="CatalogService.Teams/createdBy">
+                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                            <Annotation Term="Core.Immutable" Bool="true"/>
+                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                            <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                </Annotations>
+                                                <Annotations Target="CatalogService.Teams/modifiedAt">
+                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                    <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                    </Annotations>
+                                                    <Annotations Target="CatalogService.Teams/modifiedBy">
+                                                        <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                        <Annotation Term="Core.Computed" Bool="true"/>
+                                                        <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                            <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                            </Annotations>
+                                                            <Annotations Target="CatalogService.PublicHolidays">
+                                                                <Annotation Term="UI.LineItem">
+                                                                    <Collection>
+                                                                        <Record Type="UI.DataField">
+                                                                            <PropertyValue Property="Label" String="ID"/>
+                                                                            <PropertyValue Property="Value" Path="puHoliID"/>
+                                                                        </Record>
+                                                                        <Record Type="UI.DataField">
+                                                                            <PropertyValue Property="Label" String="Start Date"/>
+                                                                            <PropertyValue Property="Value" Path="startDate"/>
+                                                                        </Record>
+                                                                        <Record Type="UI.DataField">
+                                                                            <PropertyValue Property="Label" String="End Date"/>
+                                                                            <PropertyValue Property="Value" Path="endDate"/>
+                                                                        </Record>
+                                                                        <Record Type="UI.DataField">
+                                                                            <PropertyValue Property="Label" String="Description"/>
+                                                                            <PropertyValue Property="Value" Path="description"/>
+                                                                        </Record>
+                                                                        <Record Type="UI.DataField">
+                                                                            <PropertyValue Property="Label" String="Location"/>
+                                                                            <PropertyValue Property="Value" Path="location"/>
+                                                                        </Record>
+                                                                    </Collection>
+                                                                </Annotation>
+                                                                <Annotation Term="UI.SelectionFields">
+                                                                    <Collection>
+                                                                        <PropertyPath>puHoliID</PropertyPath>
+                                                                        <PropertyPath>startDate</PropertyPath>
+                                                                        <PropertyPath>endDate</PropertyPath>
+                                                                        <PropertyPath>type</PropertyPath>
+                                                                        <PropertyPath>location</PropertyPath>
+                                                                    </Collection>
+                                                                </Annotation>
+                                                                <Annotation Term="UI.HeaderInfo">
+                                                                    <Record Type="UI.HeaderInfoType">
+                                                                        <PropertyValue Property="TypeName" String="Employee"/>
+                                                                        <PropertyValue Property="TypeNamePlural" String="Employees"/>
+                                                                        <PropertyValue Property="Description">
+                                                                            <Record Type="UI.DataField">
+                                                                                <PropertyValue Property="Value" Path="location"/>
+                                                                            </Record>
+                                                                        </PropertyValue>
+                                                                        <PropertyValue Property="Title">
+                                                                            <Record Type="UI.DataField">
+                                                                                <PropertyValue Property="Value" Path="description"/>
+                                                                            </Record>
+                                                                        </PropertyValue>
+                                                                    </Record>
+                                                                </Annotation>
+                                                            </Annotations>
+                                                            <Annotations Target="CatalogService.PublicHolidays/createdAt">
+                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                <Annotation Term="Common.Label" String="{i18n>CreatedAt}"/>
+                                                                </Annotations>
+                                                                <Annotations Target="CatalogService.PublicHolidays/createdBy">
+                                                                    <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                    <Annotation Term="Core.Immutable" Bool="true"/>
+                                                                    <Annotation Term="Core.Computed" Bool="true"/>
+                                                                    <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                        <Annotation Term="Common.Label" String="{i18n>CreatedBy}"/>
+                                                                        </Annotations>
+                                                                        <Annotations Target="CatalogService.PublicHolidays/modifiedAt">
+                                                                            <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                            <Annotation Term="Core.Computed" Bool="true"/>
+                                                                            <Annotation Term="Common.Label" String="{i18n>ChangedAt}"/>
+                                                                            </Annotations>
+                                                                            <Annotations Target="CatalogService.PublicHolidays/modifiedBy">
+                                                                                <Annotation Term="UI.HiddenFilter" Bool="true"/>
+                                                                                <Annotation Term="Core.Computed" Bool="true"/>
+                                                                                <Annotation Term="Core.Description" String="{i18n>UserID.Description}"/>
+                                                                                    <Annotation Term="Common.Label" String="{i18n>ChangedBy}"/>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="CatalogService.EntityContainer/Leaves">
+                                                                                        <Annotation Term="Capabilities.ReadRestrictions">
+                                                                                            <Record Type="Capabilities.ReadRestrictionsType">
+                                                                                                <PropertyValue Property="Readable" Bool="true"/>
+                                                                                            </Record>
+                                                                                        </Annotation>
+                                                                                        <Annotation Term="Capabilities.InsertRestrictions">
+                                                                                            <Record Type="Capabilities.InsertRestrictionsType">
+                                                                                                <PropertyValue Property="Insertable" Bool="true"/>
+                                                                                            </Record>
+                                                                                        </Annotation>
+                                                                                        <Annotation Term="Capabilities.UpdateRestrictions">
+                                                                                            <Record Type="Capabilities.UpdateRestrictionsType">
+                                                                                                <PropertyValue Property="Updatable" Bool="true"/>
+                                                                                            </Record>
+                                                                                        </Annotation>
+                                                                                        <Annotation Term="Capabilities.DeleteRestrictions">
+                                                                                            <Record Type="Capabilities.DeleteRestrictionsType">
+                                                                                                <PropertyValue Property="Deletable" Bool="true"/>
+                                                                                            </Record>
+                                                                                        </Annotation>
+                                                                                    </Annotations>
+                                                                                    <Annotations Target="CatalogService.Country">
+                                                                                        <Annotation Term="UI.LineItem">
+                                                                                            <Collection>
+                                                                                                <Record Type="UI.DataField">
+                                                                                                    <PropertyValue Property="Label" String="ID"/>
+                                                                                                    <PropertyValue Property="Value" Path="countryID"/>
+                                                                                                </Record>
+                                                                                                <Record Type="UI.DataField">
+                                                                                                    <PropertyValue Property="Label" String="Name"/>
+                                                                                                    <PropertyValue Property="Value" Path="country"/>
+                                                                                                </Record>
+                                                                                            </Collection>
+                                                                                        </Annotation>
+                                                                                        <Annotation Term="UI.SelectionFields">
+                                                                                            <Collection>
+                                                                                                <PropertyPath>country</PropertyPath>
+                                                                                                <PropertyPath>countryID</PropertyPath>
+                                                                                            </Collection>
+                                                                                        </Annotation>
+                                                                                        <Annotation Term="UI.HeaderInfo">
+                                                                                            <Record Type="UI.HeaderInfoType">
+                                                                                                <PropertyValue Property="TypeName" String="Country"/>
+                                                                                                <PropertyValue Property="TypeNamePlural" String="Countries"/>
+                                                                                                <PropertyValue Property="Description">
+                                                                                                    <Record Type="UI.DataField">
+                                                                                                        <PropertyValue Property="Value" Path="country"/>
+                                                                                                    </Record>
+                                                                                                </PropertyValue>
+                                                                                                <PropertyValue Property="Title">
+                                                                                                    <Record Type="UI.DataField">
+                                                                                                        <PropertyValue Property="Value" Path="countryID"/>
+                                                                                                    </Record>
+                                                                                                </PropertyValue>
+                                                                                            </Record>
+                                                                                        </Annotation>
+                                                                                    </Annotations>
+                                                                                </Schema>
+                                                                            </edmx:DataServices>
+                                                                        </edmx:Edmx>

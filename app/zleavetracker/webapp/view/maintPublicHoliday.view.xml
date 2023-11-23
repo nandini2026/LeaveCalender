@@ -1,0 +1,109 @@
+<mvc:View xmlns:tnt="sap.tnt" controllerName="com.sap.zleavetracker.controller.maintPublicHoliday"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout" height="100%"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:svm="sap.ui.comp.smartvariants">
+    <f:DynamicPage id="maintPublicHolidaydynamicPageId" class="sapUiContentPadding">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle id="maintPublicHolidayPageTitle">
+                <f:heading>
+                    <Title id="maintPublicHolidayTitle" text="Maintain Country Data" />
+                </f:heading>
+                <f:expandedContent>
+                    <Label id="maintPublicHolidayLabel1" text="of Employees" />
+                </f:expandedContent>
+                <f:snappedContent>
+                    <Label id="maintPublicHolidayLabel2" text="of Employees" />
+                </f:snappedContent>
+                <f:navigationActions />
+                <f:actions>
+                    <Button id="maintPublicHolidayBtnHome" text="Home" tooltip="Go to Home" icon="sap-icon://home" type="Emphasized" press="onButtonNavigationBack"/>
+                </f:actions>
+                <f:content>
+                    <OverflowToolbar id="maintPublicHolidayOFTLB">
+                        <!-- <MessageStrip id="_IDGenMessageStrip1" text="You can filter Leaves Data for a particular employee." type="Warning" showIcon="true" showCloseButton="true" class="" /> -->
+                    </OverflowToolbar>
+                </f:content>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <Table id="tablePublicHoliday"  items="{path: '/PublicHolidays', sorter : {path : 'puHoliID' }, parameters: {$count: true, $$updateGroupId : 'PublicHolidaysGroup'} }" sticky="HeaderToolbar,ColumnHeaders" autoPopinMode="true" contextualWidth="Auto" growing="true" growingThreshold="5" inset="false" mode="SingleSelectLeft" alternateRowColors="true" class="sapFDynamicPageAlignContent" width="auto" visible="true">
+                <headerToolbar>
+                    <Toolbar id="maintPublicHolidayToolbar">
+                        <Title id="maintPublicHolidayTitle1" text="Public Holiday" level="H2" />
+                        <ToolbarSpacer id="maintPublicHolidayToolbarspacer" />
+                        <ComboBox placeholder="Select City" id="comboLoc" showSecondaryValues= "true" filterSecondaryValues= "true" change="cityChangeEvent" items="{path: '/CountryCity', sorter: {path: 'country'}}"  >
+				            <core:ListItem id="maintPublicHolidayListItem" key="{countryCityID}" text="{city}" additionalText = "{country}"/>
+                        </ComboBox>
+                        <Button id="addButtonTS" icon="sap-icon://add" text="Add" press="openManagePublicHolidaysFrag" tooltip="Add Public Holiday" />
+                        <Button id="editButtonTS" icon="sap-icon://edit" text="Edit" press="editPublicHolidays" tooltip="Edit Public Holiday" />
+                        <Button id="deleteButtonTS" icon="sap-icon://delete" text="Delete" press="deletePublicHolidays" tooltip="Delete Public Holiday" />
+                        <Button id="downloadButtonTS" icon="sap-icon://excel-attachment" text="Export" press="PublicHolidaysExport" tooltip="Download" ariaHasPopup="Dialog" />
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column id="maintPublicHolidayCln1" mergeDuplicates="true">
+                        <Text id="maintPublicHolidaytxt1" text="puHoliID" />
+                    </Column>
+                    <Column id="maintPublicHolidayCln2">
+                        <Text id="maintPublicHolidaytxt2" text="location" />
+                    </Column>
+                    <Column id="maintPublicHolidayCln3">
+                        <Text id="maintPublicHolidaytxt3" text="startDate" />
+                    </Column>
+                    <Column id="maintPublicHolidayCln4">
+                        <Text id="maintPublicHolidaytxt4" text="endDate" />
+                    </Column>
+                    <Column id="maintPublicHolidayCln5">
+                        <Text id="maintPublicHolidaytxt5" text="description" />
+                    </Column>
+
+                </columns>
+                <items>
+                    <ColumnListItem id="maintPublicHolidayClnListItem" vAlign="Middle">
+                        <cells>
+                            <Text id="maintPublicHolidaytxt6" text="{puHoliID}" />
+                            <Text id="maintPublicHolidaytxt7" text="{location}" />
+                            <Text id="maintPublicHolidaytxt8" text="{startDate}" />
+                            <Text id="maintPublicHolidaytxt9" text="{endDate}" />
+                            <Text id="maintPublicHolidaytxt10" text="{description}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+        <f:footer>
+            <tnt:ToolHeader id="maintPublicHolidayToolHeader2">
+                <Button id="maintPublicHolidayBtn2" icon="sap-icon://menu2" type="Transparent">
+                    <layoutData>
+                        <OverflowToolbarLayoutData id="maintPublicHolidayOFTBLData" priority="NeverOverflow" />
+                    </layoutData>
+                </Button>
+                <Text id="maintPublicHolidaytxt11" text="Name of the Tool" wrapping="false">
+                    <layoutData>
+                        <OverflowToolbarLayoutData id="maintPublicHolidayOFTBLData2" priority="Disappear" />
+                    </layoutData>
+                </Text>
+                <ToolbarSpacer id="maintPublicHolidayToolbarSpacer" />
+                <Select id="maintPublicHolidaySelect" width="240px">
+                    <core:Item id="maintPublicHolidayItem" text="Option 1" key="o1" />
+                    <core:Item id="maintPublicHolidayItem2" text="Option 2" key="o2" />
+                </Select>
+                <Button id="maintPublicHolidayBtnAlanSmith" text="Alan Smith" type="Transparent" press=".onUserNamePress" ariaHasPopup="Menu">
+                    <layoutData>
+                        <OverflowToolbarLayoutData id="maintPublicHolidayOFTBLData3" priority="NeverOverflow" />
+                    </layoutData>
+                </Button>
+            </tnt:ToolHeader>
+        </f:footer>
+    </f:DynamicPage>
+
+</mvc:View>

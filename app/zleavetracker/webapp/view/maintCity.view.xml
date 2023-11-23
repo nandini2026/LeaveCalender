@@ -1,0 +1,103 @@
+<mvc:View xmlns:tnt="sap.tnt" controllerName="com.sap.zleavetracker.controller.maintCity"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout" height="100%"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:svm="sap.ui.comp.smartvariants">
+    <f:DynamicPage id="maintCitydynamicPageId" class="sapUiContentPadding">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle id="maintCityPagetitle">
+                <f:heading>
+                    <Title id="maintCityTitle" text="Maintain City Data" />
+                </f:heading>
+                <f:expandedContent>
+                    <Label id="expandedLabel" text="of Employees" />
+                </f:expandedContent>
+                <f:snappedContent>
+                    <Label id="snappedLabel" text="of Employees" />
+                </f:snappedContent>
+                <f:navigationActions />
+                <f:actions>
+                    <Button id="maintCityBtn" text="Home" tooltip="Go to Home" icon="sap-icon://home" type="Emphasized" press="onButtonNavigationBack"/>
+                </f:actions>
+                <f:content>
+                    <OverflowToolbar id="maintCityOverflowtoolbar">
+                        <!-- <MessageStrip id="_IDGenMessageStrip1" text="You can filter Leaves Data for a particular employee." type="Warning" showIcon="true" showCloseButton="true" class="" /> -->
+                    </OverflowToolbar>
+                </f:content>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <Table id="tableCity"  items="{path: '/CountryCity', sorter : {path : 'city' }, parameters: {$count: true, $$updateGroupId : 'countryGroup'} }" sticky="HeaderToolbar,ColumnHeaders" autoPopinMode="true" contextualWidth="Auto" growing="true" growingThreshold="5" inset="false" mode="SingleSelectLeft" alternateRowColors="true" class="sapFDynamicPageAlignContent" width="auto" visible="true">
+                <headerToolbar>
+                    <Toolbar id="maintCityToolbar">
+                        <Title id="maintCityTitle2" text="Skill's" level="H2" />
+                        <ToolbarSpacer id="maintCityToolbarspacer1" />
+                        <Button id="addButtonTS" icon="sap-icon://add" text="Add" press="openManageCityFrag" tooltip="Add Country" />
+                        <Button id="editButtonTS" icon="sap-icon://edit" text="Edit" press="editSkill" tooltip="Edit team skill" />
+                        <Button id="deleteButtonTS" icon="sap-icon://delete" text="Delete" press="deleteSkill" tooltip="Delete team skill" />
+                        <Button id="downloadButtonTS" icon="sap-icon://excel-attachment" text="Export" press="teamskillExport" tooltip="Download" ariaHasPopup="Dialog" />
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+
+                    <Column id="maintCitycl1" mergeDuplicates="true">
+                        <Text id="maintCitytxt1" text="countryCityID" />
+                    </Column>
+                    <Column id="maintCitycll2">
+                        <Text id="maintCitytxt2" text="countryID" />
+                    </Column>
+                    <Column id="maintCitycl3">
+                        <Text id="maintCitytxt3" text="Country" />
+                    </Column>
+                    <Column id="maintCitycl4">
+                        <Text id="maintCitytxt4" text="city" />
+                    </Column>
+
+                </columns>
+                <items>
+                    <ColumnListItem id="maintCityclnList1" vAlign="Middle">
+                        <cells>
+                            <Text id="maintCitytxt5" text="{countryCityID}" />
+                            <Text id="maintCitytxt6" text="{countryID}" />
+                            <Text id="maintCitytxt7" text="{country}" />
+                            <Text id="maintCitytxt8" text="{city}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+        <f:footer>
+            <tnt:ToolHeader id="maintCityToolheader">
+                <Button id="maintCityBtn1" icon="sap-icon://menu2" type="Transparent">
+                    <layoutData>
+                        <OverflowToolbarLayoutData id="maintCityOFTBLData" priority="NeverOverflow" />
+                    </layoutData>
+                </Button>
+                <Text id="maintCitytxt9" text="Name of the Tool" wrapping="false">
+                    <layoutData>
+                        <OverflowToolbarLayoutData id="maintCityOFTBLData1" priority="Disappear" />
+                    </layoutData>
+                </Text>
+                <ToolbarSpacer id="maintCityTbspacer" />
+                <Select id="maintCitySelect" width="240px">
+                    <core:Item id="maintCityItem1" text="Option 1" key="o1" />
+                    <core:Item id="maintCityItem2" text="Option 2" key="o2" />
+                </Select>
+                <Button id="maintCityBtnAlansmith" text="Alan Smith" type="Transparent" press=".onUserNamePress" ariaHasPopup="Menu">
+                    <layoutData>
+                        <OverflowToolbarLayoutData id="maintCityOFTBLData2" priority="NeverOverflow" />
+                    </layoutData>
+                </Button>
+            </tnt:ToolHeader>
+        </f:footer>
+    </f:DynamicPage>
+
+</mvc:View>

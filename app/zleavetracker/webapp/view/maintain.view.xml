@@ -1,0 +1,65 @@
+<mvc:View xmlns:tnt="sap.tnt" controllerName="com.sap.zleavetracker.controller.maintain"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout" height="100%"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:svm="sap.ui.comp.smartvariants">
+    <!-- <mvc:content> -->
+    <Page id="maintainPage1" title="Maintain Data" class="sapUiContentPadding sapUiResponsivePadding--header sapUiResponsivePadding--subHeader sapUiResponsivePadding--content sapUiResponsivePadding--footer" showNavButton="false">
+        <!-- <headerContent>
+            <Button id="_IDGenButton1" icon="sap-icon://action" tooltip="Share" />
+        </headerContent> -->
+        <!-- <subHeader>
+            <OverflowToolbar id="_IDGenOverflowToolbar1"> -->
+                <!-- <SearchField id="_IDGenSearchField1" width="20rem"/> -->
+            <!-- </OverflowToolbar>
+        </subHeader> -->
+        <content>
+            
+            <VBox id="maintainVBox"  >
+
+                <GenericTile id="maintainGenericTile" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Manage Team Skills" press="openManageTeamFrag" frameType="TwoByHalf">
+                    <TileContent id="maintainTilecontent">
+                        <ImageContent id="maintainContent" src="sap-icon://people-connected" />
+                    </TileContent>
+                </GenericTile>
+                <GenericTile id="maintainGenericTile2" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Maintain Country" press="openManageCountryFrag" frameType="TwoByHalf" subheader="Subtitle">
+                    <TileContent id="maintainTilecontent2">
+                        <ImageContent id="maintainContent2" src="sap-icon://geographic-bubble-chart" />
+                    </TileContent>
+                </GenericTile>
+                <GenericTile id="maintainGenericTile3" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Manage City" press="openManageCityFrag" frameType="TwoByHalf" subheader="Subtitle">
+                    <TileContent id="maintainTilecontent3">
+                        <ImageContent id="maintainContent3" src="sap-icon://map-fill" />
+                    </TileContent>
+                </GenericTile>
+                <GenericTile id="maintainGenericTile4" class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Manage Public Holiday" press="openManagePublichHolidayFrag" frameType="TwoByHalf" subheader="Subtitle">
+                    <TileContent id="maintainTilecontent4">
+                        <ImageContent id="maintainContent4" src="sap-icon://flight" />
+                    </TileContent>
+                </GenericTile>
+            </VBox>
+            <!-- <VBox id="_IDGenVBox1"> -->
+            <!-- </VBox> -->
+        </content>
+        <footer>
+            <OverflowToolbar id="maintainOverflowtoolbar">
+                <ToolbarSpacer id="maintainToolbarspacer"/>
+                <Button id="hBtn" text="Home" type="Emphasized" press="onGotoMainView" icon="sap-icon://home" />
+                <!-- <Button id="_IDGenButton3" text="Reject" type="Reject" />
+                <Button id="_IDGenButton4" text="Edit" />
+                <Button id="_IDGenButton5" text="Delete" /> -->
+            </OverflowToolbar>
+        </footer>
+    </Page>
+
+    <!-- 
+</mvc:content> -->
+
+</mvc:View>

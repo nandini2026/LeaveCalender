@@ -1,0 +1,22 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Dialog id="City" title="Add City">
+        <beginButton>
+            <Button id="savecity" text="Save" type="Emphasized" press="saveManageCityFrag" />
+        </beginButton>
+        <endButton>
+            <Button id="closecity" text="Cancel" press="closeManageCityFrag" />
+        </endButton>
+        <l:VerticalLayout id="VLcity" class="sapUiContentPadding" width="100%">
+         <Label id="citysL" text="Country Name:" />
+            <ComboBox id='cbcityy' items="{
+                    path: '/Country'
+                    }" visible="true" required="true" width="100%" change="">
+                <core:Item id="itemcorecityadd" key="{countryID}" text="{country}" />
+            </ComboBox>
+            <Label id="cityL" text="City Name:" />
+            <Input id="cityinp" />
+        </l:VerticalLayout>
+    </Dialog>
+</core:FragmentDefinition>

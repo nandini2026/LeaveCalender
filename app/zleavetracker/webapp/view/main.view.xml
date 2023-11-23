@@ -1,0 +1,69 @@
+<mvc:View controllerName="com.sap.zleavetracker.controller.main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    xmlns:l="sap.ui.layout" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}" floatingFooter="true" showHeader="false" class="sapUiResponsivePadding--header, sapUiResponsivePadding--subHeader, sapUiResponsivePadding--content, sapUiResponsivePadding--footer, sapUiResponsivePadding--floatingFooter" backgroundDesign="Transparent">
+        <content>
+            <l:DynamicSideContent id="DynamicSideContent" class="sapUiDSCExplored sapUiContentPadding" sideContentVisibility="AlwaysShow" showSideContent="{path: 'stateModel>/legendShown'}" containerQuery="true">
+                <PlanningCalendar id="PC1" class="sapUiSmallMargin" appointmentHeight="Regular" appointmentRoundWidth="None" viewKey="Week" startDate="{path: 'localModel>/startDate'}" rows="{path: 'NewModel>/Employees'
+                }" appointmentsVisualization="Filled" appointmentSelect="handleAppointmentSelect" showEmptyIntervalHeaders="false" showWeekNumbers="false" singleSelection="false" rowSelectionChange="onRowselect" showIntervalHeaders="true" legend="PlanningCalendarLegend">
+                    <toolbarContent>
+                        <Title id="_IDGenTitle1" text="Leave Plan COE Technology" titleStyle="H4" />
+                        <!-- <DatePicker id="chec" displayFormat="short" width="100px" change="checkDate"/> -->
+                        <!-- <Button id="checkDate" press="checkDate" text="date check" /> -->
+                        <ComboBox placeholder="Select Location" width="9rem" id="combolocation" items="{path: '/CountryCity', sorter: {path: 'city'}}">
+				            <core:ListItem id="listcombolocation" key="{city}" text="{city}"/>
+                        </ComboBox>
+                        <ComboBox placeholder="Select Team Name" width="9rem" id="combotamname" items="{path: '/Teams', sorter: {path: 'teamName'}}">
+				            <core:ListItem id="_IDGenIthem4" key="{teamName}" text="{teamName}"/>
+                        </ComboBox>
+                        <Button id="FilterDOBTN" press="handleFilteroperation" text="Go" type="Emphasized" tooltip="Apply Filter" />
+                        <Button id="addButton" icon="sap-icon://add" press="handleAppointmentCreate" text="Leave" tooltip="Add Leave" />
+                        <Button id="refBtn" icon="sap-icon://synchronize" press="refreshBinding" tooltip="Refresh calender" />
+                        <Button id="addEmployeeButton" icon="sap-icon://add-employee" type="Accept" text="" press="handleAddEmployeeCreate" tooltip="Add New Employee" />
+                        <Button id="deleteEmpBtn" icon="sap-icon://employee-rejections" type="Reject" text="" press="handleDeleteEmp" tooltip="Delete Employee" enabled="false"/>
+                        <!-- <Button id="downloadButton" icon="sap-icon://excel-attachment" text="Export" press="downloadEmployeeData" tooltip="Download Employee Leaves" ariaHasPopup="Dialog" /> -->
+                        <ToggleButton id="idToggleButton" pressed="{path: 'stateModel>/legendShown'}" icon="sap-icon://legend" />
+                    </toolbarContent>
+                    <rows>
+                        <PlanningCalendarRow id="planningCalendar" icon="{NewModel>pic}" text="{NewModel>team_teamName} : {NewModel>location}" title="{NewModel>employeeName}"  appointments="{path : 'NewModel>leave', templateShareable: true}">
+                            <appointments>
+                                <unified:CalendarAppointment id="_IDGenCalendarAppointment11" startDate="{path: 'NewModel>startDate', formatter:'.formatter.startDateManipulation'}" endDate="{path:'NewModel>endDate', formatter:'.formatter.endDateManipulation'}" title="{NewModel>title}" text="{NewModel>description}" type="{NewModel>type}" />
+                            </appointments>
+                            <!-- <intervalHeaders>
+                                <unified:CalendarAppointment id="_IDGenCalendarAppointment1" startDate="{path: 'startDate', formatter:'.formatter.startDateManipulation'}" endDate="{path:'endDate', formatter:'.formatter.endDateManipulation'}" icon="{pic}" title="{description}" type="{type}" />
+                            </intervalHeaders> -->
+                        </PlanningCalendarRow>
+                    </rows>
+                </PlanningCalendar>
+                <l:sideContent>
+                    <PlanningCalendarLegend id="PlanningCalendarLegend" items="{path : '/legendItems', templateShareable: true}" standardItems="Today,Selected,NonWorkingDay">
+                        <items>
+                            <unified:CalendarLegendItem id="_IDGenCalendarLegendItem1" text="{text}" type="{type}" tooltip="{text}" color="{color}" />
+                        </items>
+                    </PlanningCalendarLegend>
+                </l:sideContent>
+            </l:DynamicSideContent>
+        </content>
+
+        <footer>
+            <OverflowToolbar id="_IDGenOverflowToolbar1">
+                <ToolbarSpacer id="_IDGenToolbarSpacer1" />
+                <MenuButton id="_IDGenMenuButton1" text="Maintain Data" icon="sap-icon://database">
+                    <menu>
+                        <Menu id="_IDGenMenu1" itemSelected="onMenuAction">
+                            <MenuItem id="_IDGenMenuItem1" text="Manage Team Skills" icon="sap-icon://people-connected" />
+                            <MenuItem id="_IDGenMenuItem2" text="Maintain Country" icon="sap-icon://geographic-bubble-chart" />
+                            <MenuItem id="_IDGenMenuItem3" text="Maintain City" icon="sap-icon://map-fill" />
+                            <MenuItem id="_IDGenMenuItem4" text="Manage Public Holiday" icon="sap-icon://flight" />
+                        </Menu>
+                    </menu>
+                </MenuButton>
+                <!-- <Button id="maintID" text="Maintain" icon="sap-icon://manager-insight" press="onGotoMaintainView" /> -->
+                <Button id="_IDGenButton1" text="View Report" icon="sap-icon://detail-view" press="onGotoReportView" />
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>

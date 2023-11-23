@@ -1,0 +1,34 @@
+<core:FragmentDefinition 
+    xmlns:ui="sap.ui" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:f="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core" 
+    xmlns="sap.m">
+
+<Dialog title="Edit Team Skill" id="dialogeditTS">
+	<VBox id="editTeamSkillVBox" class="sapUiSmallMargin">
+        <f:SimpleForm 
+        id="editTeamSkillFormCust" 
+        columnsM="1" columnsL="1" columnsXL="1" 
+        emptySpanS="0" emptySpanM="4" emptySpanL="4" emptySpanXL="4" 
+        labelSpanS="12" labelSpanM="3" labelSpanL="3" labelSpanXL="3" 
+        layout="ResponsiveGridLayout" 
+        editable="true">
+			<f:content>
+                <Label id="editTeamSkillLabel1" text="Team Name"/>
+                <Input id="editTeamSkillInput1" placeholder="Customer ID" value="{teamName}" enabled="false"/>
+                <Label id="editTeamSkillLabel2" text="Description"/>
+                <Input id="editTeamSkillInput2" placeholder="First Name" value="{description}"/>
+			</f:content>
+		</f:SimpleForm>
+	</VBox>
+    <buttons>
+        <Button id="editTeamSkillbtn1cust" text="Save" width="80px" type="Accept" press="handleSaveBtnPressTS" enabled="true"/>
+        <Button id="editTeamSkillbtn2cust" text="Cancel" width="80px" type="Reject" press="handleCancelBtnPressTS"/>
+    </buttons>
+
+
+
+</Dialog>
+
+</core:FragmentDefinition>

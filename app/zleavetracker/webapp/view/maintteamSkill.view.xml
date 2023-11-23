@@ -1,0 +1,95 @@
+<mvc:View xmlns:tnt="sap.tnt" controllerName="com.sap.zleavetracker.controller.maintteamSkill"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout" height="100%"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:svm="sap.ui.comp.smartvariants">
+    <f:DynamicPage id="maintteamdynamicPageId" class="sapUiContentPadding">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle id="maintteamSPageTitle">
+                <f:heading>
+                    <Title id="maintteamTitle" text="Manage Team Skills" />
+                </f:heading>
+                <f:expandedContent>
+                    <Label id="maintteamLabel" text="of Employees" />
+                </f:expandedContent>
+                <f:snappedContent>
+                    <Label id="maintteamSkillLabel1" text="of Employees" />
+                </f:snappedContent>
+                <f:navigationActions />
+                <f:actions>
+                    <Button id="maintteamBtnHome" text="Home" tooltip="Go to Home" icon="sap-icon://home" type="Emphasized" press="onButtonNavigationBack"/>
+                </f:actions>
+                <f:content>
+                    <OverflowToolbar id="maintteamOFTB">
+                        <!-- <MessageStrip id="_IDGenMessageStrip1" text="You can filter Leaves Data for a particular employee." type="Warning" showIcon="true" showCloseButton="true" class="" /> -->
+                    </OverflowToolbar>
+                </f:content>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <Table id="tableTeamSkill"  items="{path: '/Teams', sorter : {path : 'teamName' }, parameters: {$count: true, $$updateGroupId : 'customersGroup'} }" sticky="HeaderToolbar,ColumnHeaders" autoPopinMode="true" contextualWidth="Auto" growing="true" growingThreshold="5" inset="false" mode="SingleSelectLeft" alternateRowColors="true" class="sapFDynamicPageAlignContent" width="auto" visible="true">
+                <headerToolbar>
+                    <Toolbar id="maintteamToolbar">
+                        <Title id="maintteamTitle1" text="Skill's" level="H2" />
+                        <ToolbarSpacer id="maintteamToolbarspacer" />
+                        <Button id="addButtonTS" icon="sap-icon://add" text="Add" press="openManageTeamFrag" tooltip="Add team skill" />
+                        <Button id="editButtonTS" icon="sap-icon://edit" text="Edit" press="editSkill" tooltip="Edit team skill" />
+                        <Button id="deleteButtonTS" icon="sap-icon://delete" text="Delete" press="deleteSkill" tooltip="Delete team skill" />
+                        <Button id="downloadButtonTS" icon="sap-icon://excel-attachment" text="Export" press="teamskillExport" tooltip="Download" ariaHasPopup="Dialog" />
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+
+                    <Column id="maintteamcln" mergeDuplicates="true">
+                        <Text id="maintteamtxt" text="Team Name" />
+                    </Column>
+                    <Column id="maintteamcln1">
+                        <Text id="maintteamtxt1" text="Description" />
+                    </Column>
+
+                </columns>
+                <items>
+                    <ColumnListItem id="maintteamclmnListItem" vAlign="Middle">
+                        <cells>
+                            <Text id="maintteamtxt2" text="{teamName}" />
+                            <Text id="maintteamtxt3" text="{description}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+        <f:footer>
+            <tnt:ToolHeader id="maintteamToolHeader">
+                <Button id="maintteambtn" icon="sap-icon://menu2" type="Transparent">
+                    <layoutData>
+                        <OverflowToolbarLayoutData id="maintteamOFTBLData" priority="NeverOverflow" />
+                    </layoutData>
+                </Button>
+                <Text id="maintteamtxt4" text="Name of the Tool" wrapping="false">
+                    <layoutData>
+                        <OverflowToolbarLayoutData id="maintteamOFTBLData1" priority="Disappear" />
+                    </layoutData>
+                </Text>
+                <ToolbarSpacer id="maintteamToolbarspacer2" />
+                <Select id="maintteamSelect" width="240px">
+                    <core:Item id="maintteamItem2" text="Option 1" key="o1" />
+                    <core:Item id="maintteamItem3" text="Option 2" key="o2" />
+                </Select>
+                <Button id="maintteambtn3" text="Alan Smith" type="Transparent" press=".onUserNamePress" ariaHasPopup="Menu">
+                    <layoutData>
+                        <OverflowToolbarLayoutData id="maintteamOFTBLData2" priority="NeverOverflow" />
+                    </layoutData>
+                </Button>
+            </tnt:ToolHeader>
+        </f:footer>
+    </f:DynamicPage>
+
+</mvc:View>

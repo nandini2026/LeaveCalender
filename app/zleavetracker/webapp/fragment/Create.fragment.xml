@@ -1,0 +1,51 @@
+<core:FragmentDefinition xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Dialog id="createDialog">
+        <beginButton>
+            <Button id="fragCreateBtnSave" text="Save" type="Emphasized"  press="handleDialogSaveButton" />
+        </beginButton>
+        <endButton>
+            <Button id="fragCreateCancelBtn" text="Cancel" press="handleDialogCancelButton" />
+        </endButton>
+        <l:VerticalLayout id="fragCreateVerticalLayout" class="sapUiContentPadding" width="100%">
+            <!-- <CheckBox id="isIntervalAppointment" text="Interval appointment" select="handleAppointmentTypeChange" /> -->
+            <Label id="createFragLabel1" text="Select person: " labelFor="selectPerson" />
+            <Select id="selectPerson" forceSelection="false" change="handleChangeSelect" width="100%" items="{
+						path: '/Employees',
+                        sorter : {path : 'employeeName' }
+					}" required="true" >
+                <core:Item id="createFragItem" key="{employeeID}" text="{employeeName}" />
+            </Select>
+            <Label id="createFragLabel2" text="Leave Type: " labelFor="leaveType" />
+            <Select id="leaveType" width="100%" required="true" >
+                <items>
+                    <core:Item id="createFragItem8" text="Planned" key="Planned" />
+                    <core:Item id="createFragItem9" text="Un-Planned" key="Un-Planned" />
+                    <core:Item id="createFragItem10" text="Privilege" key="Privilege" />
+                    <core:Item id="leave3" text="Paternity" key="Paternity" />
+                    <core:Item id="leave11" text="Optional holiday" key="Optional holiday" />
+                    <core:Item id="leave4" text="Adoption" key="Adoption" />
+                    <core:Item id="leave5" text="Bereavement" key="Bereavement" />
+                    <core:Item id="leave6" text="Leave Without Pay" key="Leave Without Pay" />
+                    <core:Item id="leave7" text="Comp-Off" key="Comp-Off" />
+                    <core:Item id="leave8" text="Re-location" key="Re-location" />
+                    <core:Item id="leave9" text="Sabbatical" key="Sabbatical" />
+                    <core:Item id="leave10" text="Gender Aiffirmation Surgery" key="Gender Aiffirmation Surgery" />
+                </items>
+            </Select>
+            <!-- <Input id="inputTitle" /> -->
+            <Label id="createFragLabel3" text="Start date: " labelFor="startDate" />
+            <!-- <DateTimePicker id="startDate" displayFormat="short" required="true" change="handleCreateChange" /> -->
+            <DatePicker id="startDate" displayFormat="short" required="true" change="handleCreateChange" />
+
+            <Label id="createFragLabel4" text="End date: " labelFor="endDate" />
+            <!-- <DateTimePicker id="endDate" displayFormat="short" required="true" change="handleCreateChange" /> -->
+            <DatePicker id="endDate" displayFormat="short" required="true" change="handleCreateChange" />
+                
+
+            <Label id="createFragLabel5" text="No. of Day(s): " labelFor="dayNoInfo" />
+            <Input id="dayCount"  editable="false" value=""/>
+            <Label id="createFragLabel6"  text="Reason/Description: " labelFor="moreInfo" />
+            <Input id="moreInfo" required="true" liveChange="reasonLeave"/>
+        </l:VerticalLayout>
+    </Dialog>
+</core:FragmentDefinition>

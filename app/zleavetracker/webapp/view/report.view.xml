@@ -1,0 +1,133 @@
+<mvc:View xmlns:tnt="sap.tnt"
+    controllerName="com.sap.zleavetracker.controller.report"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:unified="sap.ui.unified"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    height="100%"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:svm="sap.ui.comp.smartvariants"
+>  
+    <f:DynamicPage id="reportdynamicPageId" >
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle id="reportPageTitle">
+                <f:heading>
+                    <Title id="reportTitle" text="Leave Data" />
+                </f:heading>
+                <f:expandedContent>
+                    <Label id="reportLabelExpand" text="of Employees" />
+                </f:expandedContent>
+                <f:snappedContent>
+                    <Label id="reportLabelSnapped" text="of Employees" />
+                </f:snappedContent>
+                <f:navigationActions />
+                <f:actions>
+						<Button id="reportBtnHome" text="Home" tooltip="Go to Home" icon="sap-icon://home" type="Emphasized" press="onButtonNavigationBack"/>
+					</f:actions>
+                <f:content>
+                    <OverflowToolbar id="reportOFTLB">
+                        <MessageStrip id="reportMessagestrip" text="You can filter Leaves Data for a particular employee." type="Warning" showIcon="true" showCloseButton="true" class="" />
+                    </OverflowToolbar>
+                </f:content>
+            </f:DynamicPageTitle>
+        </f:title>
+        <!-- DynamicPage Header -->
+        <f:header>
+            <f:DynamicPageHeader id="reportDynamicPageHeader">
+                <f:content>
+                    <fb:FilterBar id="reportFilterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+                        <fb:filterItems>
+                            <fb:FilterItem id="reportFilterItem" name="Name" label="Emoployee Name">
+                                <fb:control>
+                                    <!-- <MultiComboBox id="_IDGenMultiComboBox1" name="Name" selectionChange=".onSelectionChange" items="{path: 'empModel>/'}">
+                                        <core:Item id="_IDGenItem1" key="{empModel>employeeID}" text="{empModel>employeeName}" />
+                                    </MultiComboBox> -->
+                                    <MultiComboBox id="reportMultiComboBox" name="Name" selectionChange=".onSelectionChange"  items="{path: '/Employees'}">
+                                        <core:Item id="reportItem" key="{employeeID}" text="{employeeName}" />
+                                    </MultiComboBox>
+                                </fb:control>
+                            </fb:FilterItem>
+                        </fb:filterItems>
+                    </fb:FilterBar>
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <Table id="table" sticky="HeaderToolbar,ColumnHeaders" growing="true" growingThreshold="10" inset="false" 
+                items="{path: '/Leaves', sorter : {path : 'employeeID' }}" class="sapFDynamicPageAlignContent" width="auto" visible="true">
+                <headerToolbar>
+                    <Toolbar id="reportToolbar">
+                        <Title id="reportTitle1" text="{leaveDataforaEmp>/name}'s Leaves" level="H2" />
+                        <ToolbarSpacer id="reportToolbarSpacer" />
+                        <Button id="reportDownloadButton" icon="sap-icon://excel-attachment" text="Export" press="employeeLeaveExport" tooltip="Download" ariaHasPopup="Dialog" />
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    
+                    <Column id="reportcln1" mergeDuplicates="true">
+                        <Text id="reporttxt1" text="Employee ID" />
+                    </Column>
+                    <Column id="reportcln2">
+                        <Text id="reporttxt2" text="ID" />
+                    </Column>
+                    <Column id="reportcln3">
+                        <Text id="reporttxt3" text="Start Date" />
+                    </Column>
+                    <Column id="reportcln4">
+                        <Text id="reporttxt4" text="End Date" />
+                    </Column>
+                    <Column id="reportcln5">
+                        <Text id="reporttxt5" text="Title" />
+                    </Column>
+                    <Column id="reportcln6">
+                        <Text id="reporttxt6" text="Reason" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="reportCListItem">
+                        <cells>
+                            <Text id="reporttxt7" text="{employeeID}" />
+                            <Text id="reporttxt8" text="{empLeaveID}" />
+                            <Text id="reporttxt9" text="{startDate}" />
+                            <Text id="reporttxt10" text="{endDate}" />
+                            <Text id="reporttxt11" text="{title}" />
+                            <Text id="reporttxt12" text="{description}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </f:content>
+        <f:footer>
+            <tnt:ToolHeader id="reportToolHeader" >
+                <Button id="reportBtn" icon="sap-icon://menu2" type="Transparent">
+			<layoutData>
+				<OverflowToolbarLayoutData id="reportOFLData1" priority="NeverOverflow" />
+			</layoutData>
+		</Button>
+		<Text id="reporttxt13" text="Name of the Tool" wrapping="false">
+			<layoutData>
+				<OverflowToolbarLayoutData id="reportOFLData2" priority="Disappear" />
+			</layoutData>
+		</Text>
+		<ToolbarSpacer id="reportToolbarspacer" />
+		<Select id="reportSelect" width="240px">
+			<core:Item id="reportItem1" text="Option 1" key="o1" />
+			<core:Item id="reportItem2" text="Option 2" key="o2" />
+		</Select>
+		<Button id="reportBtnAlanSmith" text="Alan Smith" type="Transparent" press=".onUserNamePress" ariaHasPopup="Menu">
+			<layoutData>
+				<OverflowToolbarLayoutData id="reportOFLData3" priority="NeverOverflow" />
+			</layoutData>
+		</Button>
+            </tnt:ToolHeader>
+        </f:footer>
+    </f:DynamicPage>
+        
+</mvc:View>

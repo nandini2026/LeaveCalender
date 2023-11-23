@@ -1,0 +1,44 @@
+{
+    "Country": [
+        {
+            "country": "India"
+        },
+        {
+            "country": "Japan"
+        },
+        {
+            "country": "Netherlands"
+        }
+    ],
+    "City":[
+        {
+            "country": "India",
+            "city": "Mumbai"
+        },
+        {
+            "country": "India",
+            "city": "Pune"
+        },
+        {
+            "country": "India",
+            "city": "Kolkata"
+        },
+        {
+            "country": "Netherlands",
+            "city": "Amsterdam"
+        },
+        {
+            "country": "India",
+            "city": "Noida"
+        },
+        {
+            "country": "Japan",
+            "city": "Tokyo"
+        },
+        {
+            "country": "Japan",
+            "city": "Ohio"
+        }
+
+    ]
+}

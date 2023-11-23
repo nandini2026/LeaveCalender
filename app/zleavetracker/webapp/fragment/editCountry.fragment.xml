@@ -1,0 +1,38 @@
+<core:FragmentDefinition 
+    xmlns:ui="sap.ui" 
+    xmlns:l="sap.ui.layout" 
+    xmlns:f="sap.ui.layout.form" 
+    xmlns:core="sap.ui.core" 
+    xmlns="sap.m">
+
+<Dialog title="Edit Country" id="dialogeditTS">
+	<VBox id="editCountryFragVbox" class="sapUiSmallMargin">
+        <f:SimpleForm 
+        id="FormCusts" 
+        columnsM="1" columnsL="1" columnsXL="1" 
+        emptySpanS="0" emptySpanM="4" emptySpanL="4" emptySpanXL="4" 
+        labelSpanS="12" labelSpanM="3" labelSpanL="3" labelSpanXL="3" 
+        layout="ResponsiveGridLayout" 
+        editable="true">
+			<f:content>
+                <Label id="editCountryLabel1" text="Country Id"/>
+                <Input id="editCountryInput1" placeholder="Country ID" value="{countryID}" enabled="false"/>
+                <Label id="editCountryLabel2" text="Country Name"/>
+                <Input id="editCountryInput2" placeholder="Country Name" value="{countryCityID}" enabled="false"/>
+                <Label id="editCountryLabel3" text="Country Name"/>
+                <Input id="editCountryInput3" placeholder="Country Name" value="{country}"/>
+                <Label id="editCountryLabel4" text="Country Name"/>
+                <Input id="editCountryInput4" placeholder="Country Name" value="{city}"/>
+			</f:content>
+		</f:SimpleForm>
+	</VBox>
+    <buttons>
+        <Button id="btn1scust" text="Save" width="80px" type="Accept" press="handleSaveBtnPressTS" enabled="true"/>
+        <Button id="btn2scust" text="Cancel" width="80px" type="Reject" press="handleCancelBtnPressTS"/>
+    </buttons>
+
+
+
+</Dialog>
+
+</core:FragmentDefinition>
