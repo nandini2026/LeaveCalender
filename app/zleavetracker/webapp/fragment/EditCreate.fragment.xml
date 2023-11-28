@@ -10,8 +10,8 @@
             <!-- <CheckBox id="isIntervalAppointment" text="Interval appointment" select="handleAppointmentTypeChange" /> -->
             <!-- <Label text="Select person: " labelFor="selectPerson" />
             <Input id="selectPerson1" value="{employeeID}" /> -->
-            <Input id="leaveID" visible="false" value="{empLeaveID}"/>
-            <Input id="empID" visible="false" value="{employeeID}"/>
+            <Input id="leaveID" visible="false" value="{NewModel>empLeaveID}"/>
+            <Input id="empID" visible="false" value="{NewModel>employeeID}"/>
             <Label id="editCreateLabel1" text="Leave Type: " labelFor="inputTitle" />
             <!-- <Input id="empqID" visible="true" value="{title}"/> -->
             <Select id="leaveType1" width="100%" > 
@@ -22,11 +22,11 @@
             </Select>
             <!-- <Input id="inputTitle" /> -->
             <Label id="editCreateLabel2" text="Start date: " labelFor="startDate" />
-            <DateTimePicker id="start_Date" displayFormat="short" value="{startDate}" required="true" change="handleCreateChange" />
+            <DateTimePicker id="start_Date" displayFormat="short" value="{NewModel>startDate}" required="true" change="handleCreateChange" />
             <Label id="editCreateLabel3" text="End date: " labelFor="endDate" />
-            <DateTimePicker id="end_Date" displayFormat="short" value="{endDate}" required="true" change="handleCreateChange" />
+            <DateTimePicker id="end_Date" displayFormat="short" value="{NewModel>endDate}" required="true" change="handleCreateChange" />
             <Label id="editCreateLabel4" text="Reason/Description: " labelFor="inputInfo" />
-            <Input id="more_Info" value="{description}"/>
+            <Input id="more_Info" value="{NewModel>description}"/>
         </l:VerticalLayout>
     </Dialog>
 </core:FragmentDefinition>

@@ -16,8 +16,6 @@ sap.ui.define([
      */
     function (Controller,  JSONModel, unifiedLibrary, mLibrary, Fragment, MessageBox, MessageToast, coreLibrary, Filter,formatter, MenuItem) {
         "use strict";
-
-        
         var ValueState = coreLibrary.ValueState
         var StandardCalendarLegendItem = unifiedLibrary.StandardCalendarLegendItem,
             PlanningCalendarBuiltInView = mLibrary.PlanningCalendarBuiltInView;
@@ -52,11 +50,33 @@ sap.ui.define([
                         var y = {Employees:data.value}
                         x.getOwnerComponent().getModel('NewModel').setData(y);
                         console.log(data);
+                        x.fillSolmanModel();
                     },
                     error:function (error) {
                         console.log(`Error ${error}`);
                     }
                 });
+            },
+            fillSolmanModel:function(){
+                var oData = this.getView().getModel('NewModel').getData();
+                var empIds = [];
+                for (var i = 0; i < oData.Employees.length; i++) {
+                    var employee = oData.Employees[i];
+                    empIds.push(employee.employeeID);
+                }
+                console.log("Employee IDs:", empIds);
+                var oSolmanData = this.getView().getModel('solmanModel').getData();
+                oSolmanData.results.forEach(solmanTask =>{
+                    var oSolmanEmpId = solmanTask.employeeID;
+                    empIds.forEach((emp,i) =>{
+                        if(emp === oSolmanEmpId){
+                            oData.Employees[i].leave.push(solmanTask);
+                            // var oTask = this.getView().getModel('NewModel').getData();
+                        }
+                    })
+                });
+                this.getView().getModel('NewModel').setData(oData);
+                this.getView().getModel('NewModel').refresh();
             },
             // teamnameChangeEvent: function(oEvent){
             //     var selectedval = oEvent.getSource().getValue();
@@ -248,7 +268,7 @@ sap.ui.define([
                 }.bind(this));
             },
             _setDetailsDialogContent: function (oAppointment, oDetailsPopover) {
-                oDetailsPopover.setBindingContext(oAppointment.getBindingContext());
+                oDetailsPopover.setBindingContext(oAppointment.getBindingContext('NewModel'),'NewModel');
                 oDetailsPopover.openBy(oAppointment);
             },
             handleAppointmentCreate: function () {
@@ -375,34 +395,44 @@ sap.ui.define([
                 var oStartDate = oDateTimePickerStart.getDateValue(),
                     oEndDate = oDateTimePickerEnd.getDateValue(),
                     sValueStateText = "Start date should be before End date",
-                    sValueStateTextForSunSat = "Leave can't be applied for Saturday & Sunday";
-                if (oStartDate) {
-                    var oStartDateDayVal = oDateTimePickerStart.getDateValue().getDay();
-                }
-                if (oEndDate) {
-                    var oEndDateVal = oDateTimePickerEnd.getDateValue().getDay();
-                }
-                if (oStartDate && oEndDate && oEndDate.getTime() <= oStartDate.getTime()) {
-                    oDateTimePickerStart.setValueState(ValueState.Error);
-                    oDateTimePickerEnd.setValueState(ValueState.Error);
-                    oDateTimePickerStart.setValueStateText(sValueStateText);
-                    oDateTimePickerEnd.setValueStateText(sValueStateText);
-                } else if (oStartDateDayVal == 0 || oStartDateDayVal == 6 || oEndDateVal == 0 || oEndDateVal == 6) {
-                    oDateTimePickerStart.setValueStateText(sValueStateTextForSunSat);
-                    oDateTimePickerEnd.setValueStateText(sValueStateTextForSunSat);
-                    oDateTimePickerStart.setValueState(ValueState.Error);
-                    oDateTimePickerEnd.setValueState(ValueState.Error);
-                } else {
-                    oDateTimePickerStart.setValueState(ValueState.None);
-                    oDateTimePickerEnd.setValueState(ValueState.None);
-                    if (oEndDate && oStartDate) {
-                        var Difference_In_Time = oEndDate.getTime() - oStartDate.getTime();
-                        // To calculate the no. of days between two dates
-                        var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-                        this.byId('dayCount').setValue(Math.trunc(Difference_In_Days))
+                    sValueStateTextForSunSat = "Leave can't be applied for Saturday & Sunday",
+                    sValueStateTextForSat = "Start date should not be a Saturday";
+                if (oStartDate && oEndDate) {
+                    var startDateJS = new Date(oStartDate);
+                    var endDateJS = new Date(oEndDate);
+            
+                    var days = 0;U
+                    if ((startDateJS.getDay() === 6 || startDateJS.getDay() === 0) || (endDateJS.getDay() ===0 || endDateJS.getDay() ===6 ) ){
+                        oDateTimePickerStart.setValueStateText(sValueStateTextForSunSat);
+                        oDateTimePickerStart.setValueState(sap.ui.core.ValueState.Error);
+                        oDateTimePickerEnd.setValueStateText(sValueStateTextForSunSat);
+                        oDateTimePickerEnd.setValueState(sap.ui.core.ValueState.Error);
+                        return;
+                    }
+                    while (startDateJS <= endDateJS) {
+                        var dayOfWeek = startDateJS.getDay();
+            
+                        if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+                            days++;
+                        }
+            
+                        startDateJS.setDate(startDateJS.getDate() + 1);
+                    }
+                    // oStartDate.setHours(0, 0, 0, 0);
+                    // oEndDate.setHours(23, 59, 59, 999);
+                    if (oEndDate.getTime() < oStartDate.getTime()) {
+                        oDateTimePickerStart.setValueStateText(sValueStateText);
+                        oDateTimePickerEnd.setValueStateText(sValueStateText);
+                        oDateTimePickerStart.setValueState(sap.ui.core.ValueState.Error);
+                        oDateTimePickerEnd.setValueState(sap.ui.core.ValueState.Error);
+                    } else {
+                        this.byId('dayCount').setValue(days);
+                        oDateTimePickerStart.setValueState(sap.ui.core.ValueState.None);
+                        oDateTimePickerEnd.setValueState(sap.ui.core.ValueState.None);
                     }
                 }
             },
+            
             handleDialogSaveButton: function () {
                 var oStartDate = this.byId("startDate"),
                     oEndDate = this.byId("endDate"),
@@ -458,11 +488,13 @@ sap.ui.define([
                                 typeColor = "Type01";
                             } else {
                                 typeColor = "Type08";
-                            } oNewAppointment = {
+                            } 
+                            var oEndDateChanged = new Date(oEndDate.getDateValue().getTime()+86340000);
+                            oNewAppointment = {
                                 title: sInputTitle,
                                 info: sInfoValue,
                                 start: oStartDate.getDateValue(),
-                                end: oEndDate.getDateValue(),
+                                end: oEndDateChanged,
                                 type: typeColor
                             };
                         }
@@ -475,6 +507,7 @@ sap.ui.define([
                 this.getView().byId('selectPerson').setSelectedKey('')
             },
             _addNewAppointment: function (oAppointment, iPersonId) {
+                var that = this;
                 var startdate = this._setReadLocalTimeZone(oAppointment.start);
                 var enddate = this._setReadLocalTimeZone(oAppointment.end);
                 var dataLeave = {
@@ -495,6 +528,7 @@ sap.ui.define([
                     success: function (data) {
                         var x = JSON.stringify(data);
                         console.log(x);
+                        that.fillLocalModel();
                     },
                     error: function (error) {
                         console.log(`Error ${error}`);
@@ -531,9 +565,9 @@ sap.ui.define([
             },
             handleEditButton: function () {
                 var oDetailsPopover = this.byId("detailsPopover");
-                this.sPath = oDetailsPopover.getBindingContext().getPath();
+                this.sPath = oDetailsPopover.getBindingContext('NewModel').getPath();
                 oDetailsPopover.close();
-                this.editContext = oDetailsPopover.getBindingContext()
+                this.editContext = oDetailsPopover.getBindingContext('NewModel');
                 var oView = this.getView();
                 if (!this._pEditAppointmentDialog) {
                     this._pEditAppointmentDialog = Fragment.load({id: oView.getId(), name: "com.sap.zleavetracker.fragment.EditCreate", controller: this}).then(function (oDialog) {
@@ -543,7 +577,7 @@ sap.ui.define([
                 }
                 var that = this
                 this._pEditAppointmentDialog.then(function (oDialog) {
-                    oDialog.setBindingContext(this.editContext);
+                    oDialog.setBindingContext(this.editContext,'NewModel');
                     var sTempTitle = that._aDialogTypes[2].title;
                     oDialog.setTitle(sTempTitle);
                     oDialog.open();
@@ -611,8 +645,8 @@ sap.ui.define([
             },
             handleDeleteAppointment: function (evt) {
                 var oDetailsPopover = this.byId("detailsPopover"),
-                    pathLeave = this.byId("detailsPopover").getBindingContext().getPath(),
-                    idLeave = pathLeave.split('(')[2].split(')')[0],
+                    pathLeave = this.byId("detailsPopover").getBindingContext('NewModel').getPath(),
+                    idLeave = oDetailsPopover.getBindingContext('NewModel').getObject().empLeaveID,
                     that = this;
                 $.ajax({
                     url: "/leaveApi/Leaves(" + idLeave + ")",
@@ -658,6 +692,7 @@ sap.ui.define([
 
 				MessageToast.show("Action triggered on item: " + sItemPath);
                 if(sItemPath == 'Manage Team Skills'){
+               
                     this.oRouter.navTo("RoutemaintteamSkill");
                 }else if(sItemPath == 'Maintain Country'){
                     this.oRouter.navTo("RoutemaintCountry");

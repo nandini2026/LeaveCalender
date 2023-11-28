@@ -26,8 +26,8 @@ Content-Type: application/json
 
 {
       "employeeID": "2103a666-6a09-4aa6-8e21-10062cc3b89d",
-      "startDate": "2023-11-21T18:30:00Z",
-      "endDate": "2023-11-23T18:29:00Z",
+      "startDate": "2023-11-22T00:00:00Z",
+      "endDate": "2023-11-22T23:59:00Z",
       "title": "Planned Leave",
       "description": "High Fever",
       "type": "Type06"

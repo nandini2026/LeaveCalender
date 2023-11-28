@@ -1,1 +1,7 @@
 /* Enter your custom styles here */
+.sapUiGlobalBackgroundColor, .sapMShellGlobalInnerBackground {
+    background-color: var(--sapContent_Illustrative_Color14);
+}
+.sapUiBody {
+    color: var(--sapContent_Illustrative_Color16);
+}

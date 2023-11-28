@@ -94,6 +94,10 @@
       "NewModel":{
         "type":"sap.ui.model.json.JSONModel",
         "dataSource": "newModel"
+      },
+      "solmanModel":{
+        "type": "sap.ui.model.json.JSONModel",
+        "uri":"model/solmantask.json"
       }
     },
     "resources": {

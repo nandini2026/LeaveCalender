@@ -4,7 +4,7 @@
 		xmlns:core="sap.ui.core">
 	<ResponsivePopover
 			id="detailsPopover"
-			title="{title}"
+			title="{NewModel>title}"
 			class="sapUiContentPadding"
 			placement="Auto">
 		<beginButton>
@@ -18,12 +18,12 @@
 				layout="ResponsiveGridLayout"
 				singleContainerFullSize="false">
 			<Label id="detailsFragLabel1" text="Reason" labelFor="moreInfoText"/>
-			<Text id="moreInfoText" text="{description}"/>
+			<Text id="moreInfoText" text="{NewModel>description}"/>
             <!-- <Button icon="{pic}" text="ka"></Button> -->
 			<Label id="detailsFragLabel2" text="From" labelFor="startDateText"/>
-			<Text id="startDateText" text="{path: 'startDate'}"/>
+			<Text id="startDateText" text="{path: 'NewModel>startDate'}"/>
 			<Label id="detailsFragLabel3" text="To" labelFor="endDateText"/>
-			<Text id="endDateText" text="{path: 'endDate'}"/>
+			<Text id="endDateText" text="{path: 'NewModel>endDate'}"/>
 		</f:SimpleForm>
 	</ResponsivePopover>
 </core:FragmentDefinition>
